@@ -1,37 +1,39 @@
-import React from 'react';
-import './App.css';
-import Login from './components/Login.js';
-import Friends from './components/Friends.js';
-import { Route, Link, Redirect } from 'react-router-dom';
+import React from "react";
+import { BrowserRouter as Router, Route, NavLink, Switch } from "react-router-dom";
 
-const ProtectedRoute = ({component: Component, ...rest}) => {
-  // const propsWithoutComponent = {...props, component: undefined};
-  return <Route {...rest} render={props => {
-    if (localStorage.getItem('token')) {
-      return <Component {...props} />;
-    } else {
-      return <Redirect to="/login"/>;
-    }
-  }}/>;
-};
+import Login from "./components/Login";
+import FriendsList from "./components/Friends";
+import PrivateRoute from "./components/PrivateRoute";
 
-const protectRoute = Component => props => {
-  if (localStorage.getItem('token')) {
-    return <Component {...props} />;
-  } else {
-    return <Redirect to="/login"/>;
-  }
-};
-
-const ProtectedFriends = protectRoute(Friends);
+import "./App.css";
 
 function App() {
+
+
+
   return (
-    <div className="App">
-      <Route path="/login" component={Login} />
-      <ProtectedRoute path="/friends" component={Friends}/>
-      {/* <Route path="/friends" component={ProtectedFriends}/> */}
-    </div>
+    <Router>
+      <div className="container">
+
+        <nav>
+        <ul>
+          <li>
+            <NavLink to="/login" activeClassName=".saved-active"><span>Login</span></NavLink>
+          </li>
+          <li>
+            <NavLink to="/friends"><span>Friends</span></NavLink>
+          </li>
+        </ul>
+        <Switch>
+          <PrivateRoute exact path="/friends"  component={FriendsList}  />
+          <Route path="/login" component={Login} />
+          <Route component={Login} />
+        </Switch>
+
+        </nav>
+        
+      </div>
+    </Router>
   );
 }
 
