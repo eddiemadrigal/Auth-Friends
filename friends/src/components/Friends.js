@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import axiosWithAuth from '../utils/axiosWithAuth.js';
 import FriendForm from './FriendForm.js';
 import FriendCard from './FriendCard.js';
+import Logout from './Logout';
 import {Route, Redirect} from 'react-router-dom';
 
 const Friends = (props) => {
@@ -65,6 +66,7 @@ const Friends = (props) => {
         }
         return <FriendForm {...props} submitFriend={editFriend} initialValues={currentFriend}/>;
       }}/>
+      <Logout />
     </div>
   );
 };
