@@ -12,6 +12,6 @@ const Logout = () => {
             <button onClick={clearToken}>Logout</button>
         </div>
     )
-}
+} 
 
 export default Logout; 
